@@ -40,7 +40,7 @@ class AccountManagerTest {
         interestField.set(target,interestMock);
     }
 
-    //Wpłata na konto 100zł, powinno się udać wszystko
+    //Payment in with amount 100zł, all operations are successful
     @Test
     void paymentIn() throws SQLException {
         User user = new User();
@@ -62,6 +62,9 @@ class AccountManagerTest {
         verify(daoMock, times(1)).updateAccountState(acc);
     }
 
+    //Payment in with amount -100zł,
+    // operation is unsuccessful
+    // No updates on database
     @Test
     void paymentInNegativeAmount() throws SQLException {
         User user = new User();
@@ -82,7 +85,7 @@ class AccountManagerTest {
         verify(daoMock, never()).updateAccountState(any());
     }
 
-    // Test co jeżli daoMock zwróci wyjątek
-    // test co jest updateAccount zwróci fałsz
-    // Wypłata kwoty większej niz jest na koncie
+    // Test what if daoMock throws exception
+    // test what if updateAccount return false
+    // Test withdraw with quota higher than on the amount on the account
 }
